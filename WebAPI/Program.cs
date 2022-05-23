@@ -17,9 +17,13 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddSharedInfraestructure(configuration);
 builder.Services.AddPersistanceInfraestructure(configuration);
+builder.Services.AddControllers();
+builder.Services.AddApiVersioningExtension();
 builder.Services.AddApplicationLayer();
 
 var app = builder.Build();
+
+app.UseAuthorization();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -28,9 +32,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
 
-app.UseAuthorization();
+app.UseHttpsRedirection();
 
 app.UseErrorHandlingMiddleware();
 
