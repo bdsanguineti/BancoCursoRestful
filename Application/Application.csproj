@@ -16,9 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="DTOs\" />
     <Folder Include="Features\Clients\Queries\GetAllClient\" />
-    <Folder Include="Features\Clients\Queries\GetClientById\" />
     <Folder Include="Filters\" />
   </ItemGroup>
 
