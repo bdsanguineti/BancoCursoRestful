@@ -1,5 +1,6 @@
 ﻿using Application.DTOs;
 using Application.Interfaces;
+using Application.Specifications;
 using Application.Wrappers;
 using AutoMapper;
 using Domain.Entities;
@@ -27,9 +28,13 @@ namespace Application.Features.Clients.Queries.GetAllClient
                 _mapper = mapper;
             }
 
-            public Task<PagedResponse<List<ClientDto>>> Handle(GetAllClientQuery request, CancellationToken cancellationToken)
+            public async Task<PagedResponse<List<ClientDto>>> Handle(GetAllClientQuery request, CancellationToken cancellationToken)
             {
-                throw new NotImplementedException();
+                var clients = await _repositoryAsync.ListAsync(new PagedClientSpecification(request.PageSize, request.PageNumber, request.Name, request.Lastname));
+
+                var clientsDto = _mapper.Map<List<ClientDto>>(clients);
+
+                return new PagedResponse<List<ClientDto>>(clientsDto, request.PageNumber, request.PageSize);
             }            
         }
     }
